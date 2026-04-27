@@ -884,31 +884,36 @@ tr:hover td { background: var(--bg-hover); }
 <section id="estado">
   <div class="section-label">05 · Estado</div>
   <h2 class="section-title">Estado de hallazgos</h2>
-  <p class="section-subtitle">62,8% de cierre global · 1.325 hallazgos cerrados de 2.109 totales.</p>
-
-  <div class="card-grid cols-3 anim" style="margin-bottom:32px;">
-    <div class="card stat-card" style="border-top:3px solid var(--green);">
-      <div class="stat-val" style="color:var(--green);">1.325</div>
-      <div class="stat-label">Cerrados</div>
-      <div class="stat-sub">62,8%</div>
-    </div>
-    <div class="card stat-card" style="border-top:3px solid var(--yellow);">
-      <div class="stat-val" style="color:var(--yellow);">30</div>
-      <div class="stat-label">En proceso</div>
-      <div class="stat-sub">1,4%</div>
-    </div>
-    <div class="card stat-card" style="border-top:3px solid var(--red);">
-      <div class="stat-val" style="color:var(--red);">216</div>
-      <div class="stat-label">Abiertos</div>
-      <div class="stat-sub">10,2%</div>
-    </div>
-  </div>
+  <p class="section-subtitle">63,6% de cierre global · 1.342 hallazgos cerrados de 2.109 totales.</p>
 
   <!-- 3 Tabs: RNC / PNC / DT -->
   <div class="tabs" id="estadoTabs">
-    <button class="tab-btn active" data-tab="tab-estado-rnc">Registros de No Conformidad (RNC)</button>
-    <button class="tab-btn" data-tab="tab-estado-pnc">Productos No Conformes (PNC)</button>
-    <button class="tab-btn" data-tab="tab-estado-dt">Detalles de Terminación (DT)</button>
+    <button class="tab-btn active" data-tab="tab-estado-rnc" data-tipo="rnc">Registros de No Conformidad (RNC)</button>
+    <button class="tab-btn" data-tab="tab-estado-pnc" data-tipo="pnc">Productos No Conformes (PNC)</button>
+    <button class="tab-btn" data-tab="tab-estado-dt" data-tipo="dt">Detalles de Terminación (DT)</button>
+  </div>
+
+  <div class="card-grid cols-4 anim" style="margin-bottom:32px;" id="estadoCards">
+    <div class="card stat-card" style="border-top:3px solid var(--green);">
+      <div class="stat-val" style="color:var(--green);" id="stat-cerrados">208</div>
+      <div class="stat-label">Cerrados</div>
+      <div class="stat-sub" id="stat-cerrados-pct">74,6%</div>
+    </div>
+    <div class="card stat-card" style="border-top:3px solid var(--red);">
+      <div class="stat-val" style="color:var(--red);" id="stat-atrasados">27</div>
+      <div class="stat-label">Atrasados</div>
+      <div class="stat-sub" id="stat-atrasados-pct">9,7%</div>
+    </div>
+    <div class="card stat-card" style="border-top:3px solid var(--blue);">
+      <div class="stat-val" style="color:var(--blue);" id="stat-abiertos">10</div>
+      <div class="stat-label">Abiertos</div>
+      <div class="stat-sub" id="stat-abiertos-pct">3,6%</div>
+    </div>
+    <div class="card stat-card" style="border-top:3px solid var(--yellow);">
+      <div class="stat-val" style="color:var(--yellow);" id="stat-pendientes">34</div>
+      <div class="stat-label">Pendientes</div>
+      <div class="stat-sub" id="stat-pendientes-pct">12,2%</div>
+    </div>
   </div>
 
   <!-- TAB RNC -->
@@ -1250,114 +1255,109 @@ tr:hover td { background: var(--bg-hover); }
 <section id="demoras">
   <div class="section-label">07 · Demoras</div>
   <h2 class="section-title">Demora de las EECC en responder hallazgos</h2>
-  <p class="section-subtitle">26 pendientes >7 días · 38% PNC en plazo · 40% DT P1-P2 en plazo.</p>
+  <p class="section-subtitle">306 hallazgos atrasados (14,5%) · Besalco concentra el mayor volumen con 199 DT atrasados.</p>
 
-  <div class="card-grid cols-4 anim" style="margin-bottom:32px;">
+  <div class="card-grid cols-3 anim" style="margin-bottom:32px;">
     <div class="card stat-card" style="border-top:3px solid var(--red);">
-      <div class="stat-val" style="color:var(--red);">26</div>
-      <div class="stat-label">Pendientes atrasados</div>
-      <div class="stat-sub">>7 días sin respuesta</div>
+      <div class="stat-val" style="color:var(--red);">306</div>
+      <div class="stat-label">Total atrasados</div>
+      <div class="stat-sub">14,5% del total proyecto</div>
     </div>
     <div class="card stat-card" style="border-top:3px solid var(--yellow);">
-      <div class="stat-val" style="color:var(--yellow);">38%</div>
-      <div class="stat-label">PNC en plazo</div>
-      <div class="stat-sub">51 de 134 históricos</div>
+      <div class="stat-val" style="color:var(--yellow);">241</div>
+      <div class="stat-label">Pendientes de respuesta</div>
+      <div class="stat-sub">11,4% del total proyecto</div>
     </div>
-    <div class="card stat-card" style="border-top:3px solid var(--yellow);">
-      <div class="stat-val" style="color:var(--yellow);">40%</div>
-      <div class="stat-label">DT P1-P2 en plazo</div>
-      <div class="stat-sub">365 de 915 cerrados</div>
-    </div>
-    <div class="card stat-card" style="border-top:3px solid var(--red);">
-      <div class="stat-val" style="color:var(--red);">10%</div>
-      <div class="stat-label">DT >120 d atraso</div>
-      <div class="stat-sub">90 de 915 cerrados</div>
+    <div class="card stat-card" style="border-top:3px solid var(--green);">
+      <div class="stat-val" style="color:var(--green);">63,6%</div>
+      <div class="stat-label">Tasa de cierre global</div>
+      <div class="stat-sub">1.342 de 2.109</div>
     </div>
   </div>
 
-  <!-- Tabs PNC / DT -->
-  <div class="tabs" id="demorasTabs">
-    <button class="tab-btn active" data-tab="tab-pnc">PNC · Cierre Histórico</button>
-    <button class="tab-btn" data-tab="tab-dt">DT P1-P2 · Cierre Histórico</button>
+  <!-- Desglose por tipo de hallazgo -->
+  <div class="card anim" style="padding:28px;margin-bottom:24px;">
+    <div style="font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px;">Atrasados por tipo y contrato</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Contrato</th>
+            <th class="td-num">RNC Atrasadas</th>
+            <th class="td-num">PNC Atrasadas</th>
+            <th class="td-num">DT Atrasados</th>
+            <th class="td-num">Total Atrasados</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>CC-002</strong> <span style="font-size:11px;color:var(--text-muted);">Acciona</span></td>
+            <td class="td-num" style="color:var(--red);">9</td>
+            <td class="td-num" style="color:var(--red);">7</td>
+            <td class="td-num" style="color:var(--red);">64</td>
+            <td class="td-num"><strong>80</strong></td>
+          </tr>
+          <tr>
+            <td><strong>CC-003</strong> <span style="font-size:11px;color:var(--text-muted);">Besalco</span></td>
+            <td class="td-num" style="color:var(--red);">15</td>
+            <td class="td-num" style="color:var(--red);">2</td>
+            <td class="td-num" style="color:var(--red);">199</td>
+            <td class="td-num"><strong>216</strong></td>
+          </tr>
+          <tr>
+            <td><strong>CC-004</strong> <span style="font-size:11px;color:var(--text-muted);">Syncore</span></td>
+            <td class="td-num" style="color:var(--red);">3</td>
+            <td class="td-num" style="color:var(--red);">1</td>
+            <td class="td-num" style="color:var(--red);">6</td>
+            <td class="td-num"><strong>10</strong></td>
+          </tr>
+          <tr style="background:var(--bg-card2);">
+            <td><strong>Total</strong></td>
+            <td class="td-num"><strong>27</strong></td>
+            <td class="td-num"><strong>10</strong></td>
+            <td class="td-num"><strong>269</strong></td>
+            <td class="td-num" style="color:var(--red);font-size:16px;"><strong>306</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <div class="tab-content active" id="tab-pnc">
-    <div class="card anim" style="padding:28px;">
-      <div style="font-size:13px;color:var(--text-dim);margin-bottom:20px;">Plazos de cierre de PNC · todas las EECC · 134 cerrados históricos. Atrasos vigentes: 10 PNC · 70% en rango 31–60 d.</div>
-      <div class="bar-chart" id="pncBars">
-        <div class="bar-row">
-          <div class="bar-label">En plazo</div>
-          <div class="bar-track"><div class="bar-seg" style="width:0;background:var(--green);" data-w="38"><span>51 · 38%</span></div></div>
-          <div class="bar-val">51</div>
+  <!-- Bar chart: atrasados por contrato -->
+  <div class="card anim" style="padding:28px;">
+    <div style="font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px;">Distribución de atrasados por contrato</div>
+    <div class="stack-legend">
+      <div class="stack-legend-item"><div class="stack-legend-dot" style="background:var(--red);"></div>RNC</div>
+      <div class="stack-legend-item"><div class="stack-legend-dot" style="background:var(--yellow);"></div>PNC</div>
+      <div class="stack-legend-item"><div class="stack-legend-dot" style="background:var(--blue);"></div>DT</div>
+    </div>
+    <div class="bar-chart">
+      <div class="bar-row">
+        <div class="bar-label">CC-002<br><span style="font-size:11px;color:var(--text-muted);font-weight:400;">Acciona</span></div>
+        <div class="bar-track">
+          <div class="bar-seg" style="width:0;background:var(--red);" data-w="11.3"><span>9</span></div>
+          <div class="bar-seg" style="width:0;background:var(--yellow);" data-w="8.8"><span>7</span></div>
+          <div class="bar-seg" style="width:0;background:var(--blue);" data-w="80"><span>64</span></div>
         </div>
-        <div class="bar-row">
-          <div class="bar-label">1–15 d</div>
-          <div class="bar-track"><div class="bar-seg" style="width:0;background:var(--yellow);" data-w="18"><span>24 · 18%</span></div></div>
-          <div class="bar-val">24</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">16–30 d</div>
-          <div class="bar-track"><div class="bar-seg" style="width:0;background:var(--yellow);" data-w="13"><span>17 · 13%</span></div></div>
-          <div class="bar-val">17</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">31–60 d</div>
-          <div class="bar-track"><div class="bar-seg" style="width:0;background:var(--accent);" data-w="19"><span>26 · 19%</span></div></div>
-          <div class="bar-val">26</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">61–120 d</div>
-          <div class="bar-track"><div class="bar-seg" style="width:0;background:var(--red);" data-w="11"><span>14 · 11%</span></div></div>
-          <div class="bar-val">14</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">>120 d</div>
-          <div class="bar-track"><div class="bar-seg" style="width:0;background:var(--red);" data-w="1.5"><span>2 · 1%</span></div></div>
-          <div class="bar-val">2</div>
-        </div>
+        <div class="bar-val">80</div>
       </div>
-    </div>
-  </div>
-
-  <div class="tab-content" id="tab-dt">
-    <div class="card anim" style="padding:28px;">
-      <div style="font-size:13px;color:var(--text-dim);margin-bottom:20px;">Plazos de cierre de DT alta prioridad · 1.385 totales · 78% cerrados (915). Atrasos vigentes: 264 DT · >90 d = 77 (29%).</div>
-      <div class="bar-chart" id="dtBars">
-        <div class="bar-row">
-          <div class="bar-label">En plazo</div>
-          <div class="bar-track"><div class="bar-seg" style="width:0;background:var(--green);" data-w="40"><span>365 · 40%</span></div></div>
-          <div class="bar-val">365</div>
+      <div class="bar-row">
+        <div class="bar-label">CC-003<br><span style="font-size:11px;color:var(--text-muted);font-weight:400;">Besalco</span></div>
+        <div class="bar-track">
+          <div class="bar-seg" style="width:0;background:var(--red);" data-w="6.9"><span>15</span></div>
+          <div class="bar-seg" style="width:0;background:var(--yellow);" data-w="0.9"><span></span></div>
+          <div class="bar-seg" style="width:0;background:var(--blue);" data-w="92.1"><span>199</span></div>
         </div>
-        <div class="bar-row">
-          <div class="bar-label">1–15 d</div>
-          <div class="bar-track"><div class="bar-seg" style="width:0;background:var(--yellow);" data-w="25"><span>227 · 25%</span></div></div>
-          <div class="bar-val">227</div>
+        <div class="bar-val">216</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">CC-004<br><span style="font-size:11px;color:var(--text-muted);font-weight:400;">Syncore</span></div>
+        <div class="bar-track">
+          <div class="bar-seg" style="width:0;background:var(--red);" data-w="30"><span>3</span></div>
+          <div class="bar-seg" style="width:0;background:var(--yellow);" data-w="10"><span>1</span></div>
+          <div class="bar-seg" style="width:0;background:var(--blue);" data-w="60"><span>6</span></div>
         </div>
-        <div class="bar-row">
-          <div class="bar-label">16–30 d</div>
-          <div class="bar-track"><div class="bar-seg" style="width:0;background:var(--yellow);" data-w="11"><span>104 · 11%</span></div></div>
-          <div class="bar-val">104</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">31–60 d</div>
-          <div class="bar-track"><div class="bar-seg" style="width:0;background:var(--accent);" data-w="10"><span>96 · 10%</span></div></div>
-          <div class="bar-val">96</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">61–120 d</div>
-          <div class="bar-track"><div class="bar-seg" style="width:0;background:var(--red);" data-w="4"><span>38 · 4%</span></div></div>
-          <div class="bar-val">38</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">121–360 d</div>
-          <div class="bar-track"><div class="bar-seg" style="width:0;background:var(--red);" data-w="9"><span>80 · 9%</span></div></div>
-          <div class="bar-val">80</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-label">>360 d</div>
-          <div class="bar-track"><div class="bar-seg" style="width:0;background:#8e1b1b;" data-w="0.5"><span>1</span></div></div>
-          <div class="bar-val">1</div>
-        </div>
+        <div class="bar-val">10</div>
       </div>
     </div>
   </div>
@@ -1489,9 +1489,32 @@ document.querySelectorAll('.tabs').forEach(tabGroup => {
       parent.querySelector('#' + btn.dataset.tab).classList.add('active');
       // Trigger bar animations in newly visible tab
       animateBars();
+      // Update estado stat cards if this is the estado tab group
+      if (btn.dataset.tipo) updateEstadoCards(btn.dataset.tipo);
     });
   });
 });
+
+// ── Dynamic Estado Cards ──
+const estadoData = {
+  rnc:  { cerr: 208, atra: 27, abie: 10, pend: 34, total: 279 },
+  pnc:  { cerr: 134, atra: 10, abie: 5,  pend: 12, total: 161 },
+  dt:   { cerr: 1000, atra: 269, abie: 205, pend: 195, total: 1669 }
+};
+function fmtNum(n) { return n >= 1000 ? n.toLocaleString('es-CL') : n.toString(); }
+function fmtPct(n, t) { return (n / t * 100).toFixed(1).replace('.', ',') + '%'; }
+function updateEstadoCards(tipo) {
+  const d = estadoData[tipo];
+  if (!d) return;
+  document.getElementById('stat-cerrados').textContent = fmtNum(d.cerr);
+  document.getElementById('stat-cerrados-pct').textContent = fmtPct(d.cerr, d.total);
+  document.getElementById('stat-atrasados').textContent = fmtNum(d.atra);
+  document.getElementById('stat-atrasados-pct').textContent = fmtPct(d.atra, d.total);
+  document.getElementById('stat-abiertos').textContent = fmtNum(d.abie);
+  document.getElementById('stat-abiertos-pct').textContent = fmtPct(d.abie, d.total);
+  document.getElementById('stat-pendientes').textContent = fmtNum(d.pend);
+  document.getElementById('stat-pendientes-pct').textContent = fmtPct(d.pend, d.total);
+}
 
 // ── Intersection Observer (fade-in) ──
 const obs = new IntersectionObserver((entries) => {
