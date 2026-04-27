@@ -207,9 +207,11 @@ section + section { border-top: 1px solid var(--border); }
 .org-tree { display: flex; flex-direction: column; align-items: center; gap: 0; }
 .org-node {
   background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--r); padding: 12px 10px; text-align: center;
-  min-width: 0; position: relative;
+  border-radius: var(--r); padding: 14px 16px; text-align: center;
+  width: 200px; min-height: 100px;
+  position: relative;
   transition: transform .2s, border-color .2s;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
 .org-node:hover { transform: translateY(-2px); border-color: var(--accent); }
 .org-node .name { font-weight: 700; font-size: 13px; }
@@ -225,9 +227,104 @@ section + section { border-top: 1px solid var(--border); }
   background: rgba(229,83,2,.10); color: var(--accent);
 }
 .org-connector {
-  width: 2px; height: 28px; background: var(--border-lt);
+  width: 2px; height: 28px; background: var(--teal);
   margin: 0 auto;
 }
+
+/* Spine layout */
+.org-spine {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 600px;
+  padding: 0;
+  overflow: hidden;
+}
+.org-spine::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--teal);
+  transform: translateX(-50%);
+  z-index: 0;
+}
+.org-spine-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  padding: 8px 0;
+  z-index: 1;
+}
+.org-spine-row.left {
+  justify-content: flex-start;
+}
+.org-spine-row.right {
+  justify-content: flex-end;
+}
+.org-spine-row .org-node {
+  z-index: 2;
+  position: relative;
+}
+/* Horizontal arm for LEFT rows: from card right edge to center */
+.org-spine-row.left::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 200px;
+  right: 50%;
+  height: 2px;
+  background: var(--teal);
+}
+/* Horizontal arm for RIGHT rows: from center to card left edge */
+.org-spine-row.right::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: 200px;
+  height: 2px;
+  background: var(--teal);
+}
+
+/* Bottom fan-out: 3 branches */
+.org-fanout {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  position: relative;
+  padding-top: 0;
+  margin-top: 0;
+}
+.org-fanout::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  /* spans from center of first card to center of last card */
+  left: calc(100% / 6);
+  right: calc(100% / 6);
+  height: 2px;
+  background: var(--teal);
+}
+.org-fanout-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 200px;
+}
+.org-fanout-branch::before {
+  content: '';
+  width: 2px;
+  height: 14px;
+  background: var(--teal);
+}
+
 .org-row {
   display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
   position: relative; padding-top: 0;
@@ -238,7 +335,7 @@ section + section { border-top: 1px solid var(--border); }
 }
 .org-branch-line::before {
   content: ''; position: absolute; top: 0;
-  width: min(90%, 780px); height: 2px; background: var(--border-lt);
+  width: min(90%, 780px); height: 2px; background: var(--teal);
 }
 
 /* ═══ TABLE ═══ */
@@ -489,59 +586,78 @@ tr:hover td { background: var(--bg-hover); }
   <p class="section-subtitle">Dotación vigente: 8 profesionales · Vicepresidencia de Proyectos Codelco.</p>
 
   <div class="org-tree anim">
-    <!-- Level 0 -->
+    <!-- Level 0: Mónica Ocares -->
     <div class="org-node" style="border-color:var(--accent);">
       <div class="role">Jefa de Calidad VP</div>
       <div class="name">Mónica Ocares</div>
       <div class="desc">Vicepresidencia de Proyectos · Codelco</div>
     </div>
     <div class="org-connector"></div>
-    <!-- Level 1 -->
+
+    <!-- Level 1: Ricardo Ibarra -->
     <div class="org-node" style="border-color:var(--teal);">
-      <div class="role">Jefe de Calidad</div>
+      <div class="role">Jefe de Calidad ITO</div>
       <div class="name">Ricardo Ibarra</div>
       <div class="desc">Proyecto N22CC01 · IX Etapa Tranque Talabre</div>
     </div>
-    <div class="org-connector"></div>
-    <!-- Branch line -->
-    <div class="org-branch-line" style="height:20px;"></div>
-    <!-- Level 2 -->
-    <div class="org-row" style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;">
-      <div class="org-node">
-        <div class="role">Especialista de Calidad</div>
-        <div class="name">Nicolás Jiménez</div>
-        <div class="desc">Gestión – SIC3PRO</div>
-        <div class="turno">Turno 4×3</div>
+
+    <!-- Spine: vertical trunk with left/right branches -->
+    <div class="org-spine">
+      <!-- Branch LEFT: Cristian Álvarez -->
+      <div class="org-spine-row left">
+        <div class="org-node">
+          <div class="role">Jefe de Laboratorio</div>
+          <div class="name">Cristian Álvarez</div>
+          <div class="desc">Ensayos suelos · hormigón</div>
+          <div class="turno">Turno 4×3</div>
+        </div>
       </div>
-      <div class="org-node">
-        <div class="role">Auditor de Calidad</div>
-        <div class="name">Nicolás Corvalán</div>
-        <div class="desc">Auditorías internas · SGC</div>
-        <div class="turno">Turno 4×3</div>
+      <!-- Branch RIGHT: Nicolás Jiménez -->
+      <div class="org-spine-row right" style="margin-top:-46px;">
+        <div class="org-node">
+          <div class="role">Especialista de Calidad ITO</div>
+          <div class="name">Nicolás Jiménez</div>
+          <div class="desc">Gestión – SIC3PRO</div>
+          <div class="turno">Turno 4×3</div>
+        </div>
       </div>
-      <div class="org-node">
-        <div class="role">Jefe de Laboratorio</div>
-        <div class="name">Cristian Álvarez</div>
-        <div class="desc">Ensayos suelos · hormigón</div>
-        <div class="turno">Turno 4×3</div>
+      <!-- Branch RIGHT: Nicolás Corvalán -->
+      <div class="org-spine-row right" style="margin-top:-6px;">
+        <div class="org-node">
+          <div class="role">Auditor Líder de Calidad</div>
+          <div class="name">Nicolás Corvalán</div>
+          <div class="desc">Auditorías internas · SGC</div>
+          <div class="turno">Turno 4×3</div>
+        </div>
       </div>
-      <div class="org-node">
-        <div class="role">Insp. Civil de Calidad</div>
-        <div class="name">Marcelo Osorio</div>
-        <div class="desc">Obras civiles · Transversal</div>
-        <div class="turno turno-7x7">Turno 7×7</div>
+    </div>
+    <!-- Connector spine → fanout -->
+    <div class="org-connector" style="height:12px;"></div>
+    <!-- Fan-out: 3 branches at the bottom -->
+    <div class="org-fanout">
+      <div class="org-fanout-branch">
+        <div class="org-node" style="border-color:var(--teal);">
+          <div class="role">ITO Civil de Calidad</div>
+          <div class="name">Marcelo Osorio</div>
+          <div class="desc">Obras civiles · Transversal</div>
+          <div class="turno turno-7x7">Turno 7×7</div>
+        </div>
       </div>
-      <div class="org-node">
-        <div class="role">Insp. Civil de Calidad</div>
-        <div class="name">Carolina Carmona</div>
-        <div class="desc">Obras civiles · Transversal</div>
-        <div class="turno turno-7x7">Turno 7×7</div>
+      <div class="org-fanout-branch">
+        <div class="org-node" style="border-color:var(--teal);">
+          <div class="role">ITO Civil de Calidad</div>
+          <div class="name">Carolina Carmona</div>
+          <div class="desc">Obras civiles · Transversal</div>
+          <div class="turno turno-7x7">Turno 7×7</div>
+        </div>
       </div>
-      <div class="org-node">
-        <div class="role">Insp. Eléctrico de Calidad</div>
-        <div class="name">Edmundo Fernández</div>
-        <div class="desc">Eléctrico · instrumentación</div>
-        <div class="turno">Turno 4×3</div>
+      <div class="org-fanout-branch">
+        <div class="org-node">
+          <div class="role">ITO Eléctrico de Calidad</div>
+          <div class="name">Edmundo Fernández</div>
+          <div class="desc">Eléctrico · instrumentación</div>
+          <div class="turno">Turno 4×3</div>
+        </div>
       </div>
     </div>
   </div>
